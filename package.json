@@ -1,28 +1,27 @@
 {
-  "name": "proto-es2017",
+  "name": "scanty",
   "version": "0.0.0",
   "description": "Spiffy boilerplate for building and testing with ES2017+.",
   "keywords": [],
-  "homepage": "https://github.com/kroogs/proto-es2017",
+  "homepage": "https://github.com/kroogs/scanty",
   "author": "Justin Krueger <justin@kroo.gs>",
   "contributors": [],
   "private": "true",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/kroogs/proto-es2017.git"
+    "url": "https://github.com/kroogs/scanty.git"
   },
   "bugs": {
-    "url": "https://github.com/kroogs/proto-es2017/issues"
+    "url": "https://github.com/kroogs/scanty/issues"
   },
-  "main": "./dist/proto-es2017.js",
+  "main": "./dist/scanty.js",
   "files": [
     "dist",
     "src",
     "test"
   ],
   "scripts": {
-    "start": "webpack-dev-server",
     "build": "webpack -p",
     "test": "jest --coverage",
     "test-dev": "jest --watch --coverage",
@@ -45,20 +44,21 @@
     "eslint": "^4.3.0",
     "eslint-plugin-flowtype": "^2.35.0",
     "eslint-plugin-import": "^2.7.0",
-    "file-loader": "^0.11.2",
     "flow": "^0.2.3",
     "flow-bin": "^0.52.0",
     "flow-typed": "^2.1.5",
     "jest": "^20.0.4",
     "jest-cli": "^20.0.4",
     "prettier": "^1.5.3",
-    "webpack": "^3.4.1",
-    "webpack-dev-server": "^2.6.1"
+    "webpack": "^3.4.1"
   },
   "jest": {
     "moduleDirectories": [
       "node_modules",
       "src"
     ]
+  },
+  "dependencies": {
+    "yaemit": "^1.8.0"
   }
 }

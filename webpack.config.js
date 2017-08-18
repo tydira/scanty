@@ -1,4 +1,4 @@
-const path = require('path')
+const { resolve } = require('path')
 
 module.exports = {
   context: __dirname,
@@ -6,15 +6,15 @@ module.exports = {
   devtool: 'source-map',
 
   output: {
-    library: 'es2017-starter',
+    library: 'scanty',
     libraryTarget: 'umd',
-    path: path.resolve('dist'),
-    filename: 'es2017-starter.js',
+    path: resolve('dist'),
+    filename: 'scanty.js',
   },
 
   resolve: {
     extensions: ['.js'],
-    modules: [path.resolve('node_modules'), path.resolve('src')],
+    modules: [resolve('node_modules'), resolve('src')],
   },
 
   module: {
@@ -22,27 +22,8 @@ module.exports = {
       {
         use: ['babel-loader'],
         test: /\.js$/,
-        exclude: [path.resolve('node_modules')],
-      },
-      {
-        use: 'file-loader',
-        test: /.*/,
-        exclude: [/\.js$/],
+        exclude: [resolve('node_modules')],
       },
     ],
-  },
-
-  watchOptions: {
-    ignored: /node_modules/,
-  },
-
-  devServer: {
-    port: 3030,
-    contentBase: path.resolve('src'),
-    stats: 'errors-only',
-    overlay: {
-      warnings: true,
-      errors: true,
-    },
   },
 }
