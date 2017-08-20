@@ -2,7 +2,7 @@ import Emitter from 'yaemit'
 import { isArray, isFunction } from './utils'
 
 export default class Lexer extends Emitter {
-  rules = []
+  _rules = []
 
   constructor(options = {}) {
     super()
@@ -26,7 +26,7 @@ export default class Lexer extends Emitter {
       if (args.length > 2) rule.handler = args[2]
     }
 
-    this.rules.push(rule)
+    this._rules.push(rule)
   }
 
   _wrapRegex(regex, position) {
@@ -35,7 +35,7 @@ export default class Lexer extends Emitter {
     return wrapped
   }
 
-  scan(text, rules = this.rules) {
+  scan(text, rules = this._rules) {
     const tokens = []
     const end = text.length
     let position = 0

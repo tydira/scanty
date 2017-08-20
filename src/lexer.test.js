@@ -26,15 +26,15 @@ describe('Lexer', function() {
         { name: 'char', match: /[a-z]/ },
       ])
 
-      expect(lexer.options.rules[0].name).toBe('number')
-      expect(lexer.options.rules[1].name).toBe('char')
+      expect(lexer._rules[0].name).toBe('number')
+      expect(lexer._rules[1].name).toBe('char')
     })
   })
 
   describe('#rule', () => {
     it('accepts a name and regex', () => {
       this.lexer.rule('something', /.*/)
-      expect(this.lexer.rules[0]).toEqual({
+      expect(this.lexer._rules[0]).toEqual({
         name: 'something',
         match: /.*/,
       })
@@ -44,7 +44,7 @@ describe('Lexer', function() {
       const handler = () => {}
       const regex = /.*/
       this.lexer.rule('something', regex, handler)
-      expect(this.lexer.rules[0]).toEqual({
+      expect(this.lexer._rules[0]).toEqual({
         name: 'something',
         match: /.*/,
         handler,
@@ -56,7 +56,7 @@ describe('Lexer', function() {
         name: 'something',
         match: /.*/,
       })
-      expect(this.lexer.rules[0]).toEqual({
+      expect(this.lexer._rules[0]).toEqual({
         name: 'something',
         match: /.*/,
       })
