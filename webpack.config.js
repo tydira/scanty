@@ -8,8 +8,8 @@ module.exports = {
   output: {
     library: 'scanty',
     libraryTarget: 'umd',
-    path: resolve('dist'),
-    filename: 'scanty.js',
+    path: resolve('lib'),
+    filename: 'scanty.min.js',
   },
 
   resolve: {

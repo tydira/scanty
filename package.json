@@ -1,12 +1,10 @@
 {
   "name": "scanty",
   "version": "0.0.0",
-  "description": "Spiffy boilerplate for building and testing with ES2017+.",
-  "keywords": [],
+  "description": "Simple little text scanner.",
+  "keywords": ["lex", "lexer", "scan", "scanner", "token", "tokenize", "tokenizer"],
   "homepage": "https://github.com/kroogs/scanty",
   "author": "Justin Krueger <justin@kroo.gs>",
-  "contributors": [],
-  "private": "true",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -15,9 +13,9 @@
   "bugs": {
     "url": "https://github.com/kroogs/scanty/issues"
   },
-  "main": "./dist/scanty.js",
+  "main": "./lib/scanty.min.js",
   "files": [
-    "dist",
+    "lib",
     "src",
     "test"
   ],
@@ -35,18 +33,12 @@
     "babel-eslint": "^7.2.3",
     "babel-loader": "^7.1.1",
     "babel-preset-env": "^1.6.0",
-    "babel-preset-flow": "^6.23.0",
     "babel-preset-stage-0": "^6.24.1",
     "coveralls": "^2.13.1",
     "esdoc": "^1.0.1",
-    "esdoc-flow-plugin": "^1.0.0",
     "esdoc-standard-plugin": "^1.0.0",
     "eslint": "^4.3.0",
-    "eslint-plugin-flowtype": "^2.35.0",
     "eslint-plugin-import": "^2.7.0",
-    "flow": "^0.2.3",
-    "flow-bin": "^0.52.0",
-    "flow-typed": "^2.1.5",
     "jest": "^20.0.4",
     "jest-cli": "^20.0.4",
     "prettier": "^1.5.3",
