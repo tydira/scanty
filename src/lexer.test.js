@@ -72,6 +72,11 @@ describe('Lexer', function() {
       expect(regex.multiline).toBe(true)
       expect(regex.lastIndex).toBe(5)
     })
+
+    it('stores and returns cached RegExp instances', () => {
+      const regex = this.lexer._wrapRegex(/./)
+      expect(this.lexer._wrapRegex('.')).toBe(regex)
+    })
   })
 
   describe('#scan', () => {

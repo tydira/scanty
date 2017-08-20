@@ -1,8 +1,9 @@
 import Emitter from 'yaemit'
-import { isArray, isFunction } from './utils'
+import { isArray, isFunction, isRegex } from './utils'
 
 export default class Lexer extends Emitter {
   _rules = []
+  _regex = {}
 
   constructor(options = {}) {
     super()
@@ -29,9 +30,18 @@ export default class Lexer extends Emitter {
     this._rules.push(rule)
   }
 
-  _wrapRegex(regex, position) {
-    const wrapped = new RegExp(regex, 'ygm')
+  _wrapRegex(regex, position = 0) {
+    const key = isRegex(regex) ? regex.source : regex
+    let wrapped
+
+    if (this._regex[key]) {
+      wrapped = this._regex[key]
+    } else {
+      wrapped = this._regex[key] = new RegExp(regex, 'ygm')
+    }
+
     wrapped.lastIndex = position
+
     return wrapped
   }
 
