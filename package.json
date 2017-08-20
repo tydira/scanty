@@ -1,6 +1,6 @@
 {
   "name": "scanty",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Simple little text scanner.",
   "keywords": ["lex", "lexer", "scan", "scanner", "token", "tokenize", "tokenizer"],
   "homepage": "https://github.com/kroogs/scanty",
