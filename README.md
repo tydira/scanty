@@ -1,49 +1,33 @@
-# Proto ES2017+
+# Scanty
 
-[![TravisCI](https://img.shields.io/travis/kroogs/proto-es2017.svg)](https://travis-ci.org/kroogs/proto-es2017)
-[![Coverage](https://img.shields.io/coveralls/kroogs/proto-es2017.svg)](https://coveralls.io/github/kroogs/proto-es2017)
-[![Dependencies](https://img.shields.io/david/kroogs/proto-es2017.svg)](https://david-dm.org/kroogs/proto-es2017)
-[![Dev Dependencies](https://img.shields.io/david/dev/kroogs/proto-es2017.svg)](https://david-dm.org/kroogs/proto-es2017?type=dev)
-[![MIT License](https://img.shields.io/github/license/kroogs/proto-es2017.svg)](https://github.com/kroogs/proto-es2017/blob/master/LICENSE)
+[![TravisCI](https://img.shields.io/travis/kroogs/scanty.svg)](https://travis-ci.org/kroogs/scanty)
+[![Coverage](https://img.shields.io/coveralls/kroogs/scanty.svg)](https://coveralls.io/github/kroogs/scanty)
+[![Dependencies](https://img.shields.io/david/kroogs/scanty.svg)](https://david-dm.org/kroogs/scanty)
+[![Dev Dependencies](https://img.shields.io/david/dev/kroogs/scanty.svg)](https://david-dm.org/kroogs/scanty?type=dev)
+[![MIT License](https://img.shields.io/github/license/kroogs/scanty.svg)](https://github.com/kroogs/scanty/blob/master/LICENSE)
 
-> Spiffy boilerplate for building and testing with ES2017+.
+## Install
 
-## Getting Started
-
-  Clone and cd to `project_name`:
-  ```
-  git clone https://github.com/kroogs/proto-es2017 project_name && cd project_name
+  ```shell
+  npm --save install scanty
   ```
 
-  (Optional) Setup remotes:
-  ```
-  git remote rename origin starter
-  git remote add origin <your repo url>
-  ```
+## Example
 
-  Install dependencies:
-  ```
-  npm install
-  ```
+  Lex arbitrary tokens from a RegExp.
+  ```javascript
+  import { Lexer } from 'scanty'
 
-## Usage
+  const lexer = new Lexer()
+  lexer.rule('char', /./)
 
-  Watch `src` for changes:
-  ```
-  npm start
-  ```
-
-  Run tests:
-  ```
-  npm test
-  ```
-
-  Type check, reformat, lint:
-  ```
-  npm run lint
-  ```
-
-  Produce minified bundle in `dist`:
-  ```
-  npm run build
+  console.log(lexer.scan('hello'))
+  // Output:
+  // [
+  //   { type: 'char', value: 'h', position: 0 },
+  //   { type: 'char', value: 'e', position: 1 },
+  //   { type: 'char', value: 'l', position: 2 },
+  //   { type: 'char', value: 'l', position: 3 },
+  //   { type: 'char', value: 'o', position: 4 },
+  // ]
   ```
