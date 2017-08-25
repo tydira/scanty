@@ -65,7 +65,7 @@ export default class Lexer extends Emitter {
 
         const context = { rule, token, tokens, found }
 
-        if (isFunction(rule.handler)) context.action = rule.handler
+        if (rule.handler) context.action = rule.handler
         this.emit(rule.name, context)
         if (isFunction(context.action)) context.action(context)
 
