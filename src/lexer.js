@@ -47,10 +47,9 @@ export default class Lexer extends Emitter {
 
   scan(text, rules = this._rules) {
     const tokens = []
-    const end = text.length
     let position = 0
 
-    while (position < end) {
+    while (position < text.length) {
       let found
 
       for (const rule of rules) {
