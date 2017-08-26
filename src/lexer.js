@@ -3,7 +3,7 @@ import { isArray, isFunction, isRegex } from './utils'
 
 export default class Lexer extends Emitter {
   _rules = []
-  _regex = {}
+  _regexCache = {}
 
   constructor(options = {}) {
     super()
@@ -34,10 +34,10 @@ export default class Lexer extends Emitter {
     const key = isRegex(regex) ? regex.source : regex
     let wrapped
 
-    if (this._regex[key]) {
-      wrapped = this._regex[key]
+    if (this._regexCache[key]) {
+      wrapped = this._regexCache[key]
     } else {
-      wrapped = this._regex[key] = new RegExp(regex, 'ygm')
+      wrapped = this._regexCache[key] = new RegExp(regex, 'ygm')
     }
 
     wrapped.lastIndex = position
