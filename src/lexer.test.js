@@ -99,11 +99,11 @@ describe('Lexer', function() {
       ])
     })
 
-    it("assigns rule.handler to context.action if it's a function and then runs it", () => {
-      const action = context => {
-        expect(context.action).toBe(action)
+    it("assigns rule.handler to context.handler if it's a function and then runs it", () => {
+      const handler = context => {
+        expect(context.handler).toBe(handler)
       }
-      this.lexer.rule('one', /1/, action)
+      this.lexer.rule('one', /1/, handler)
       this.lexer.scan('1')
     })
 
