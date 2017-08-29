@@ -24,25 +24,28 @@ export default class Lexer extends Emitter {
 
     if (args.length > 1) {
       rule = { name: args[0], match: args[1] }
-      if (args.length > 2) rule.handler = args[2]
+      if (args.length > 2) rule.action = args[2]
     }
+
+    if (isFunction(rule.action))
+      this.on(rule.name, context => rule.action(context))
 
     this._rules.push(rule)
   }
 
-  _wrapRegex(regex, position = 0) {
+  _prepRegex(regex, position = 0) {
     const key = isRegex(regex) ? regex.source : regex
-    let wrapped
+    let prepped
 
     if (this._regexCache[key]) {
-      wrapped = this._regexCache[key]
+      prepped = this._regexCache[key]
     } else {
-      wrapped = this._regexCache[key] = new RegExp(regex, 'ygm')
+      prepped = this._regexCache[key] = new RegExp(regex, 'ygm')
     }
 
-    wrapped.lastIndex = position
+    prepped.lastIndex = position
 
-    return wrapped
+    return prepped
   }
 
   scan(text, rules = this._rules) {
@@ -53,7 +56,7 @@ export default class Lexer extends Emitter {
       let found
 
       for (const rule of rules) {
-        found = this._wrapRegex(rule.match, position).exec(text)
+        found = this._prepRegex(rule.match, position).exec(text)
         if (!found) continue
 
         const token = {
@@ -62,17 +65,20 @@ export default class Lexer extends Emitter {
           value: found[0],
         }
 
-        const context = { rule, token, tokens, found }
+        const action = () => {
+          position += token.value.length
+          tokens.push(token)
+        }
 
-        if (rule.handler) context.handler = rule.handler
+        const context = { rule, token, tokens, found, action }
+
         this.emit(rule.name, context)
-        if (isFunction(context.handler)) context.handler(context)
+        this.emit('token', context)
 
-        position += context.token.value.length
-        tokens.push(context.token)
+        context.action()
       }
 
-      if (!found) break
+      if (tokens.length === 0) break
     }
 
     return tokens

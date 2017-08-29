@@ -8,7 +8,6 @@ describe('Lexer', function() {
   describe('#constructor', () => {
     it('accepts an array of rules', () => {
       const lexer = new Lexer([{ name: 'char', match: /./ }])
-
       expect(lexer.options.rules[0].name).toBe('char')
     })
 
@@ -40,32 +39,55 @@ describe('Lexer', function() {
       })
     })
 
-    it('accepts a name, regex, and handler', () => {
-      const handler = () => {}
+    it('accepts a name, regex, and action', () => {
+      const action = () => {}
       const regex = /.*/
-      this.lexer.rule('something', regex, handler)
+
+      this.lexer.rule('something', regex, action)
+
       expect(this.lexer._rules[0]).toEqual({
         name: 'something',
         match: /.*/,
-        handler,
+        action,
       })
     })
 
-    it('accepts only a config {handler, name, match}', () => {
+    it('accepts a {action, name, match}', () => {
       this.lexer.rule({
         name: 'something',
         match: /.*/,
       })
+
       expect(this.lexer._rules[0]).toEqual({
         name: 'something',
         match: /.*/,
       })
     })
+
+    it('attempts to configure an action for a rule', () => {
+      const action = context => {
+        expect(context.action).toBe(action)
+      }
+
+      this.lexer.rule('one', /1/, action)
+      this.lexer.scan('one')
+    })
+
+    it("register a rule's action to be ran with a context arg", () => {
+      const required = ['rule', 'token', 'tokens', 'found', 'action']
+      let keys
+
+      this.lexer.rule('one', '1', ctx => (keys = Object.keys(ctx)))
+      this.lexer.rule('two', '2', 'spaghetti') // Do not attempt to run a 'spaghetti'
+      this.lexer.scan('12')
+
+      expect(keys).toEqual(required)
+    })
   })
 
-  describe('#_wrapRegex', () => {
-    it('returns a wrapped RegExp with ygm and lastIndex set', () => {
-      const regex = this.lexer._wrapRegex(/./, 5)
+  describe('#_prepRegex', () => {
+    it('returns a prepped RegExp with ygm and lastIndex set', () => {
+      const regex = this.lexer._prepRegex(/./, 5)
       expect(regex.source).toBe('.')
       expect(regex.sticky).toBe(true)
       expect(regex.global).toBe(true)
@@ -74,8 +96,8 @@ describe('Lexer', function() {
     })
 
     it('stores and returns cached RegExp instances', () => {
-      const regex = this.lexer._wrapRegex(/./)
-      expect(this.lexer._wrapRegex('.')).toBe(regex)
+      const regex = this.lexer._prepRegex(/./)
+      expect(this.lexer._prepRegex('.')).toBe(regex)
     })
   })
 
@@ -94,22 +116,32 @@ describe('Lexer', function() {
       this.lexer.rule('one', /1/)
       this.lexer.rule('two', /2/)
       this.lexer.rule('three', /3/)
+
       expect(this.lexer.scan('3')).toEqual([
         { type: 'three', value: '3', position: 0 },
       ])
     })
 
-    it("assigns rule.handler to context.handler if it's a function and then runs it", () => {
-      const handler = context => {
-        expect(context.handler).toBe(handler)
-      }
-      this.lexer.rule('one', /1/, handler)
-      this.lexer.scan('1')
-    })
-
     it('returns an empty array if nothing matched', () => {
       this.lexer.rule('one', /1/)
       expect(this.lexer.scan('3')).toEqual([])
+    })
+
+    it('emits a token event for every token found', () => {
+      const ran = []
+
+      this.lexer.rule('one', '1')
+      this.lexer.rule('two', '2')
+      this.lexer.rule('three', '3')
+      this.lexer.rule('space', ' ')
+
+      this.lexer.on('token', ({ rule }) => {
+        ran.push(rule.name)
+      })
+
+      this.lexer.scan('1 2 3')
+
+      expect(ran).toEqual(['one', 'space', 'two', 'space', 'three'])
     })
   })
 })
