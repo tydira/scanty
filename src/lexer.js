@@ -27,8 +27,9 @@ export default class Lexer extends Emitter {
       if (args.length > 2) rule.action = args[2]
     }
 
-    if (isFunction(rule.action))
+    if (isFunction(rule.action)) {
       this.on(rule.name, context => rule.action(context))
+    }
 
     this._rules.push(rule)
   }
