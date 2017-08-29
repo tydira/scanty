@@ -76,7 +76,7 @@ export default class Lexer extends Emitter {
         this.emit(rule.name, context)
         this.emit('token', context)
 
-        context.action()
+        if (isFunction(context.action)) context.action()
       }
 
       if (tokens.length === 0) break
