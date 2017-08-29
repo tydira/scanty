@@ -1,6 +1,6 @@
 {
   "name": "scanty",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A small tool for building simple text scanners without the overhead of a PEG.",
   "keywords": ["lex", "lexer", "scan", "scanner", "token", "tokenize", "tokenizer"],
   "homepage": "https://github.com/kroogs/scanty",
