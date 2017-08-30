@@ -78,8 +78,7 @@ describe('Lexer', function() {
       let keys
 
       this.lexer.rule('one', '1', ctx => (keys = Object.keys(ctx)))
-      this.lexer.rule('two', '2', 'spaghetti') // Do not attempt to run a 'spaghetti'
-      this.lexer.scan('12')
+      this.lexer.scan('1')
 
       expect(keys).toEqual(required)
     })
@@ -112,7 +111,7 @@ describe('Lexer', function() {
       ])
     })
 
-    it('cycles rules until it finds one', () => {
+    it('cycles rules until it finds a valid one', () => {
       this.lexer.rule('one', /1/)
       this.lexer.rule('two', /2/)
       this.lexer.rule('three', /3/)
@@ -142,6 +141,24 @@ describe('Lexer', function() {
       this.lexer.scan('1 2 3')
 
       expect(ran).toEqual(['one', 'space', 'two', 'space', 'three'])
+    })
+
+    it("runs #context.action if it's a function", () => {
+      const ran = []
+
+      this.lexer.rule('one', '1', ctx => {
+        ran.push(true)
+        ctx.action = undefined
+      })
+
+      this.lexer.rule('digits', /\d+/, () => {
+        ran.push(true)
+      })
+
+      expect(this.lexer.scan('12')).toEqual([
+        { type: 'digits', value: '12', position: 0 },
+      ])
+      expect(ran.length).toBe(2)
     })
   })
 })
