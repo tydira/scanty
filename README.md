@@ -7,7 +7,7 @@
 [![npm version](https://img.shields.io/npm/v/scanty.svg)](https://www.npmjs.com/package/scanty)
 [![MIT License](https://img.shields.io/github/license/kroogs/scanty.svg)](https://github.com/kroogs/scanty/blob/master/LICENSE)
 
-A small tool for building simple text scanners without the overhead of a PEG.
+A small library for building toy lexers.
 
 ## Install
 
