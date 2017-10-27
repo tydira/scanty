@@ -1,6 +1,6 @@
 {
   "name": "scanty",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "A small library for building toy lexers.",
   "keywords": ["lex", "lexer", "scan", "scanner", "token", "tokenize", "tokenizer"],
   "homepage": "https://github.com/kroogs/scanty",
