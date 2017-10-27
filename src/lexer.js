@@ -21,7 +21,6 @@
  */
 
 import Emitter from 'yaemit'
-import { isArray, isFunction, isRegex } from './utils'
 
 export default class Lexer extends Emitter {
   _rules = []
@@ -30,7 +29,7 @@ export default class Lexer extends Emitter {
   constructor(options = {}) {
     super()
 
-    if (isArray(options)) {
+    if (Array.isArray(options)) {
       this.options = { rules: options }
     } else {
       this.options = options
@@ -49,7 +48,7 @@ export default class Lexer extends Emitter {
       if (args.length > 2) rule.action = args[2]
     }
 
-    if (isFunction(rule.action)) {
+    if (typeof rule.action === 'function') {
       this.on(rule.name, rule.action)
     }
 
@@ -57,7 +56,7 @@ export default class Lexer extends Emitter {
   }
 
   _prepRegex(regex, position = 0) {
-    const key = isRegex(regex) ? regex.source : regex
+    const key = regex instanceof RegExp ? regex.source : regex
     let prepped
 
     if (this._regexCache[key]) {
@@ -98,7 +97,7 @@ export default class Lexer extends Emitter {
         this.emit(rule.name, context)
         this.emit('token', context)
 
-        if (isFunction(context.action)) context.action()
+        if (typeof context.action === 'function') context.action()
       }
 
       if (tokens.length === 0) break
