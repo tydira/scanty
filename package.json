@@ -1,7 +1,7 @@
 {
   "name": "scanty",
-  "version": "0.2.1",
-  "description": "A small tool for building simple text scanners without the overhead of a PEG.",
+  "version": "0.3.0",
+  "description": "A small library for building toy lexers.",
   "keywords": ["lex", "lexer", "scan", "scanner", "token", "tokenize", "tokenizer"],
   "homepage": "https://github.com/kroogs/scanty",
   "author": "Justin Krueger <justin@kroo.gs>",
@@ -28,21 +28,21 @@
     "prepublishOnly": "npm run lint && npm test && npm run build"
   },
   "devDependencies": {
-    "babel-cli": "^6.24.1",
-    "babel-core": "^6.25.0",
-    "babel-eslint": "^7.2.3",
-    "babel-loader": "^7.1.1",
-    "babel-preset-env": "^1.6.0",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.0.1",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
     "babel-preset-stage-0": "^6.24.1",
-    "coveralls": "^2.13.1",
-    "esdoc": "^1.0.1",
+    "coveralls": "^3.0.0",
+    "esdoc": "^1.0.3",
     "esdoc-standard-plugin": "^1.0.0",
-    "eslint": "^4.3.0",
-    "eslint-plugin-import": "^2.7.0",
-    "jest": "^20.0.4",
-    "jest-cli": "^20.0.4",
-    "prettier": "^1.5.3",
-    "webpack": "^3.4.1"
+    "eslint": "^4.9.0",
+    "eslint-plugin-import": "^2.8.0",
+    "jest": "^21.2.1",
+    "jest-cli": "^21.2.1",
+    "prettier": "^1.7.4",
+    "webpack": "^3.8.1"
   },
   "jest": {
     "moduleDirectories": [
